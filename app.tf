@@ -24,6 +24,15 @@ resource "aws_security_group_rule" "app_ssh_ingress" {
 }
 
 
+resource "aws_security_group_rule" "app_http_ingress" {
+    security_group_id        = "${aws_security_group.app_security_group.id}"
+    type                     = "ingress"
+    from_port                = 80
+    to_port                  = 80
+    protocol                 = "tcp"
+    cidr_blocks     = ["0.0.0.0/0"]
+}
+
 resource "aws_security_group_rule" "app_egress" {
     security_group_id        = "${aws_security_group.app_security_group.id}"
     type                     = "egress"
@@ -40,6 +49,15 @@ resource "aws_security_group_rule" "alb_to_app_ingress" {
     to_port                  = 80
     protocol                 = "tcp"
     source_security_group_id = "${aws_security_group.app_alb_security_group.id}"
+}
+
+resource "aws_security_group_rule" "alb_egress" {
+    security_group_id        = "${aws_security_group.app_alb_security_group.id}"
+    type                     = "egress"
+    from_port                = 80
+    to_port                  = 80
+    protocol                 = "tcp"
+    source_security_group_id = "${aws_security_group.app_security_group.id}"
 }
 
 
@@ -68,7 +86,6 @@ resource "aws_lb" "app_alb" {
     name            = "app-alb"
     security_groups = ["${aws_security_group.app_alb_security_group.id}"]
     subnets         = ["${aws_subnet.app.*.id}"]
-    internal        = "true"
     tags {
         Name        = "app alb"
     }
@@ -78,9 +95,14 @@ resource "aws_lb" "app_alb" {
 }
 
 
+output "sinatra_public_url" {
+
+	value = "${aws_lb.app_alb.dns_name}"
+}
+
 resource "aws_lb_target_group" "app" {
     name                    = "app-tg"
-    port                    = 8080
+    port                    = 80
     protocol                = "HTTP"
     vpc_id                  = "${aws_vpc.vpc.id}"
     health_check {
@@ -114,7 +136,7 @@ resource "aws_instance" "sinatra_app" {
 	ami                        = "ami-60a26a02"
 	instance_type 			   = "t2.micro"
 	availability_zone			= "ap-southeast-2a"
-	subnet_id					= "${aws_subnet.app.id}"
+	subnet_id					= "${aws_subnet.app.*.id[count.index]}"
     associate_public_ip_address = "true"
     security_groups             = ["${aws_security_group.app_security_group.id}"]
     user_data                   = "${data.template_cloudinit_config.app_userdata.rendered}"
@@ -126,6 +148,11 @@ resource "aws_instance" "sinatra_app" {
   }
     lifecycle { create_before_destroy = true }
 
+}
+
+output "instance ssh ip" {
+	
+	value = "${aws_instance.sinatra_app.public_ip}"
 }
 
 resource "aws_lb_target_group_attachment" "sinatra_attach" {
