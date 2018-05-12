@@ -77,5 +77,5 @@ As requirements stated the app is listening on port 80 on webrick, Ideally I wou
 
 ###Design Choices and trade off's
 
-Terraform was selected over other IaaC languages because of the fact that it is portable across other cloud providers and allows integration of other 3rd party providers lie cloudflare and other CDN providers. Terraform also 
+Terraform was selected over other IaaC languages because of the fact that it is portable across other cloud providers and allows integration of other 3rd party providers lie cloudflare and other CDN providers. Terraform also lets you plan the deployment which runs through the config files and then executes the actual deployment
 
