@@ -1,6 +1,6 @@
-### Deployment of Simple Sinatra app
+# Deployment of Simple Sinatra app
 
-## Technologies used 
+### Technologies used 
 
 Terraform
 AWS
@@ -48,10 +48,10 @@ This will deploy a VPC, Subnets, Routing, Security groups along with access rule
 Once the Terraform apply completes you will see the output at the end similar to the following
 
 ```
-instance ssh ip = 54.252.181.90
-sinatra_public_url = internal-app-alb-98689535.ap-southeast-2.elb.amazonaws.com
+instance ssh ip = 13.236.36.78
+sinatra_public_url = app-alb-1615642375.ap-southeast-2.elb.amazonaws.com
 vpc_cidr = 172.16.0.0/16
-vpc_id = vpc-1226b475
+vpc_id = vpc-ab79e4cc
 ```
 
 use the sinatra_public_url to load the app on a browser and/or use the instance ssh ip along with the key (niro_cf_testing.pem).
@@ -63,15 +63,18 @@ cd sinatra/deploy
 ./destroy 
 ```
 
-##Assumptions
+#Assumptions
 
 Anything in the terraform code can be parameterised , it might appear to be a bespoke solution, however any parameter can be put into the vars.tfvars and made to be reusable across multiple environments
 
+Assuming there is no autoscaling one instance was deployed
+
+As requirements stated the app is listening on port 80 on webrick, Ideally I would have got webrick to listen on its default port and have the ALB relay traffic into it whilst listening on port 443 with a certificate issued/maintained by the ACM, and you'd need a domain
 
 
 
 
-Design Choices and trade off's
+#Design Choices and trade off's
 
-Terraf
+Terraform was selected over other IaaC languages because of the fact that it is portable across other cloud providers and allows integration of other 3rd party providers lie cloudflare and other CDN providers. Terraform also 
 
