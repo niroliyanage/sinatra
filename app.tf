@@ -24,8 +24,8 @@ resource "aws_security_group_rule" "app_ssh_ingress" {
 }
 
 
-resource "aws_security_group_rule" "app_http_ingress" {
-    security_group_id        = "${aws_security_group.app_security_group.id}"
+resource "aws_security_group_rule" "app_alb_http_ingress" {
+    security_group_id        = "${aws_security_group.app_alb_security_group.id}"
     type                     = "ingress"
     from_port                = 80
     to_port                  = 80
@@ -133,7 +133,7 @@ resource "aws_alb_listener" "app_frontend" {
 
 
 resource "aws_instance" "sinatra_app" {
-	ami                        = "ami-60a26a02"
+	ami                        = "ami-b9f026db"
 	instance_type 			   = "t2.micro"
 	availability_zone			= "ap-southeast-2a"
 	subnet_id					= "${aws_subnet.app.*.id[count.index]}"
@@ -148,6 +148,19 @@ resource "aws_instance" "sinatra_app" {
   }
     lifecycle { create_before_destroy = true }
 
+    connection {
+    type = "ssh"
+    user = "ec2-user"
+    private_key = "${file("${path.module}/niro_cf_testing.pem")}"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+    "sleep 30",
+    "bash -x /home/ec2-user/start.sh"
+    ]
+  }
+
 }
 
 output "instance ssh ip" {
@@ -161,4 +174,13 @@ resource "aws_lb_target_group_attachment" "sinatra_attach" {
   port             = 80
 
 
+}
+
+
+resource "cloudflare_record" "sinatra_cname" {
+  domain = "olympushub.com"
+  name   = "sinatra"
+  value  = "${aws_lb.app_alb.dns_name}"
+  type   = "CNAME"
+  ttl    = "1"
 }
