@@ -8,7 +8,8 @@ Shell scripting
 
 ## Prerequisites
 
-Terraform - Version 0.11.7 from homebrew \n
+Terraform - Version 0.11.7 from homebrew
+
 AWS account - (Feel free to use mine, keys already defined )
 
 
