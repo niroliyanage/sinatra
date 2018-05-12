@@ -46,7 +46,7 @@ Run the Terraform apply
 ```
 This will deploy a VPC, Subnets, Routing, Security groups along with access rules, an application load balancer and an ec2 instance where the sinatra app will get deployed when started. 
 
-Once the Terraform apply completes you will see the output at the end similar to the following
+Once the Terraform apply completes you will see the output at the end similar to the following,
 
 ```
 instance ssh ip = 13.236.36.78
@@ -55,7 +55,7 @@ vpc_cidr = 172.16.0.0/16
 vpc_id = vpc-ab79e4cc
 ```
 
-use the sinatra_public_url to load the app on a browser and/or use the instance ssh ip along with the key (niro_cf_testing.pem).
+use the sinatra_public_url to load the app on a browser and/or use the instance ssh ip along with the key (niro_cf_testing.pem), or use ```http://sinatra.olympushub.com```
 
 
 Once done dont forget to destroy the stack and avoid charges on stale resources
