@@ -1,13 +1,3 @@
-terraform {
- backend "s3" {
- encrypt = true
- bucket = "mystuff-niro"
- region = "ap-southeast-2"
- key = "sinatra/statefile"
- profile = "default"
- }
-}
-
 
 provider "aws" {
     profile = "terraform-network"

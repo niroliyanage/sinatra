@@ -1,8 +1,6 @@
 export TF_VAR_region="ap-southeast-2"
 export region="ap-southeast-2"
 export tfplan="sinatra.tfplan"
-export TF_VAR_bucket="mystuff-niro"
-export TF_VAR_accountnum="361210870815"
 export TF_VAR_access_key="AKIAJD7AK4DHKUQSM2RA"
 export TF_VAR_secret_key="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"
 export TF_VAR_cloudflare_email="niroshan.d.liyanage@gmail.com"

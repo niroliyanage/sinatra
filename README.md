@@ -18,22 +18,10 @@ AWS account - (Feel free to use mine, keys already defined and emailed )
 ```
 git clone https://github.com/niroliyanage/sinatra.git
 ```
-### Configure AWS credentials to a profile (default)
 
-Execute the following on a terminal
-```
-	cat << EOF | tee ~/.aws/config
-	[default]
-	aws_access_key_id = <emailed>
-	aws_secret_access_key = <emailed>
-	region = ap-southeast-2
-	EOF
-```
-If its preferred that your own AWS account be used , an account with Administrator  Privileges is required (Essentially instances would assume roles with administrator privileges upon provisioning , for the case of this assesment i've just used an account with admin privileges ). If another account is used please ensure an S3 bucket exists and the following vars are updated in the ```deploy/env.sh```
+If you want to use your own AWS account be used , an account with Administrator  Privileges is required (Essentially instances would assume roles with administrator privileges upon provisioning , for the case of this assesment i've just used an account with admin privileges ). If another account is used please ensure the following vars are updated in the ```deploy/env.sh```
 
 ```
-export TF_VAR_bucket="<bucket-name>"
-export TF_VAR_accountnum="xxxxxxxx"
 export TF_VAR_access_key="xxxxxx"
 export TF_VAR_secret_key="xxxxx"
 ```
@@ -88,4 +76,8 @@ Access to the instances on port 22 are open to the public, However in an ideal s
 
 Terraform was selected over other IaaC languages because of the fact that it is portable across other cloud providers and allows integration of other 3rd party providers like cloudflares.
 Terraform also lets you plan the deployment which runs through the config files and then executes the actual deployment. The only trade off is that a change would require the entire stack to be redeployed, however following the concepts of immutable infrastructure this seems like a viable option.
+
+Not using S3 buckets to store statefiles with dynamodb file locks - This implementation will ensure that the state files are well protected and preserved and the dynamodb table backend will ensure that only one execution of the terraform plans exist with file locks , I did implement something similar but removed it for simplicity
+
+
 
