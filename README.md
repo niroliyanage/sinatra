@@ -14,11 +14,11 @@ AWS account - (Feel free to use mine, keys already defined and emailed )
 
 ## Steps to deploy
 
-###Clone Repo
+### Clone Repo
 ```
 git clone https://github.com/niroliyanage/sinatra.git
 ```
-###Configure AWS credentials to a profile (default)
+### Configure AWS credentials to a profile (default)
 
 Execute the following on a terminal
 ```
@@ -41,7 +41,7 @@ export TF_VAR_secret_key="xxxxx"
 ```
 
 
-###Navigate to the deploy folder
+### Navigate to the deploy folder
 ```
 cd sinatra/deploy
 ```
@@ -73,7 +73,7 @@ cd sinatra/deploy
 ./destroy.sh 
 ```
 
-###Assumptions
+### Assumptions
 
 Anything in the terraform code can be parameterised , it might appear to be a bespoke solution, however any parameter can be put into the vars.tfvars and made to be reusable across multiple environments
 
@@ -84,7 +84,7 @@ As requirements stated the app is listening on port 80 on webrick, Ideally I wou
 An AMI with ruby 2.3 installed has been shared publicly and is used during the deployment which is defined in the app.tf 
 
 
-###Design Choices and trade off's
+### Design Choices and trade off's
 
 Terraform was selected over other IaaC languages because of the fact that it is portable across other cloud providers and allows integration of other 3rd party providers lie cloudflare and other CDN providers. Terraform also lets you plan the deployment which runs through the config files and then executes the actual deployment. The only trade off is that a change would require the entire stack to be redeployed, however following the concepts of immutable infrastructure this seems like a viable option.
 
