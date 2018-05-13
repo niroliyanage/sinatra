@@ -83,6 +83,8 @@ As requirements stated the app is listening on port 80 on webrick, Ideally I wou
 
 An AMI with ruby 2.3 installed has been shared publicly and is used during the deployment which is defined in the app.tf 
 
+Access to the instances on port 22 are open to the public, However in an ideal scenario ssh access will be locked down to bastion/jump instances which are inturn locked down by source IP addresses,  and instance access would be managed by federated identity
+
 
 ### Design Choices and trade off's
 
