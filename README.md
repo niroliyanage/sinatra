@@ -29,9 +29,7 @@ Execute the following on a terminal
 	region = ap-southeast-2
 	EOF
 ```
-If its preferred that your own AWS account be used , an account with Administrator  Privileges is required.
-
-Please ensure an S3 bucket exists and the following vars are updated in the ```deploy/env.sh```
+If its preferred that your own AWS account be used , an account with Administrator  Privileges is required (Essentially instances would assume roles with administrator privileges upon provisioning , for the case of this assesment i've just used an account with admin privileges ). If another account is used please ensure an S3 bucket exists and the following vars are updated in the ```deploy/env.sh```
 
 ```
 export TF_VAR_bucket="<bucket-name>"
