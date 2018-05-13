@@ -148,19 +148,6 @@ resource "aws_instance" "sinatra_app" {
   }
     lifecycle { create_before_destroy = true }
 
-    connection {
-    type = "ssh"
-    user = "ec2-user"
-    private_key = "${file("${path.module}/niro_cf_testing.pem")}"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-    "sleep 30",
-    "bash -x /home/ec2-user/start.sh"
-    ]
-  }
-
 }
 
 output "instance ssh ip" {
