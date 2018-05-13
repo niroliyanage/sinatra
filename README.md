@@ -29,7 +29,7 @@ Execute the following on a terminal
 	region = ap-southeast-2
 	EOF
 ```
-If its preferred that your own AWS account be used , it will make things easier as the account being used has Administrator  Privileges.
+If its preferred that your own AWS account be used , an account with Administrator  Privileges is recovered.
 
 Please ensure an S3 bucket exists and the following vars are updated in the ```deploy/env.sh```
 
