@@ -27,6 +27,7 @@ Please ensure the following vars are updated in the ```deploy/env.sh```
 export TF_VAR_access_key="xxxxxx"
 export TF_VAR_secret_key="xxxxx"
 export TF_VAR_cloudflare_token="xxxx"
+export TF_VAR_key_pair_name="xxxxx"
 ```
 
 

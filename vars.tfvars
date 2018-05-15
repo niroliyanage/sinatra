@@ -6,4 +6,3 @@ availability_zones = {
         ]
 }
 reigon = "ap-southeast-2"
-key_pair_name = "niro_cf_testing"
