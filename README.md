@@ -10,7 +10,7 @@ Shell scripting
 
 Terraform - Version 0.11.7 from homebrew
 
-AWS account - (Feel free to use mine, keys already defined and emailed )
+AWS account - (Feel free to use mine, keys  emailed )
 
 ## Steps to deploy
 
@@ -19,11 +19,14 @@ AWS account - (Feel free to use mine, keys already defined and emailed )
 git clone https://github.com/niroliyanage/sinatra.git
 ```
 
-If you want to use your own AWS account be used , an account with Administrator  Privileges is required (Essentially instances would assume roles with administrator privileges upon provisioning , for the case of this assesment i've just used an account with admin privileges ). If another account is used please ensure the following vars are updated in the ```deploy/env.sh```
+If you want to use your own AWS account be used , an account with Administrator  Privileges is required (Essentially instances would assume roles with administrator privileges upon provisioning , for the case of this assesment i've just used an account with admin privileges ). 
+
+Please ensure the following vars are updated in the ```deploy/env.sh```
 
 ```
 export TF_VAR_access_key="xxxxxx"
 export TF_VAR_secret_key="xxxxx"
+export TF_VAR_cloudflare_token="xxxx"
 ```
 
 
